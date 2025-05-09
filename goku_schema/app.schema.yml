@@ -1,4 +1,43 @@
-# yaml-language-server: $schema=https://teejays.github.io/goku/schemausr.schema.json
-app:
-  services:
-    - name: main
+version: '1.0'
+entities:
+  - name: user
+    description: User entity representing system users
+    fields:
+      - name: email
+        datatype: string
+        options:
+          is_optional: false
+      - name: first_name
+        datatype: string
+        options:
+          is_optional: false
+      - name: last_name
+        datatype: string
+        options:
+          is_optional: false
+      - name: role
+        datatype: string
+    options:
+      add_key_field: true
+      is_public_read: false
+  - name: task
+    description: Task entity for tracking work items
+    fields:
+      - name: title
+        datatype: string
+        options:
+          is_optional: false
+      - name: description
+        datatype: string
+        options:
+          is_optional: true
+      - name: status
+        datatype: string
+      - name: due_date
+        datatype: datetime
+    associations:
+      - relationship: child_of
+        type: one
+        entity: user
+        name: assignee
+        other_association_name: tasks
